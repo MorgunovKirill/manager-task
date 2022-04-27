@@ -1,9 +1,11 @@
-node_modules
-* text eol=lf
-
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.webp binary
-*.woff binary
-*.woff2 binary
+.DS_Store
+.idea
+.vscode
+package-lock.json
+*.ai
+*.log
+*.psd
+*.sublime*
+node_modules/
+npm-debug.*
+Thumbs.db
