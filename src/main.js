@@ -1,4 +1,6 @@
 import {generateFilters} from "./mock/filter.js";
+import {generateTasks} from "./mock/tasks";
+
 import {createSiteMenuTemplate} from "./components/menu.js"
 import {createFiltersTemplate} from "./components/filter.js"
 import {createBoardTemplate} from "./components/board.js"
@@ -8,8 +10,9 @@ import {createTaskTemplate} from "./components/task.js"
 import {createLoadMoreButtonTemplate} from "./components/more-button.js"
 
 
-const TASKS_COUNT = 5;
+const TASKS_COUNT = 10;
 const filters = generateFilters();
+const tasks = generateTasks(TASKS_COUNT);
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -26,10 +29,9 @@ const borderContainerElement = siteMainElement.querySelector(`.board`);
 render(borderContainerElement, createSortTemplate(), `afterbegin`);
 
 const boardTasks = borderContainerElement.querySelector(`.board__tasks`);
-render(boardTasks, createTaskFormTemplate(), `beforeend`);
+render(boardTasks, createTaskFormTemplate(tasks[0]), `beforeend`);
 
-for (let i = 0; i < TASKS_COUNT; i++) {
-  render(boardTasks, createTaskTemplate(), `beforeend`);
-}
+tasks.slice(1).map((el) =>  render(boardTasks, createTaskTemplate(el), `beforeend`));
+
 
 render(boardTasks, createLoadMoreButtonTemplate(), `beforeend`);

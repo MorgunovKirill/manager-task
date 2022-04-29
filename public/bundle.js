@@ -403,7 +403,7 @@ const createSortTemplate = () => {
 
 /***/ "./src/components/task.js":
 /*!********************************!*\
-  !*** ./src/components/task.js ***!
+  !*** ./src/components/tasks.js ***!
   \********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -462,7 +462,7 @@ const createTaskTemplate = () => {
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -476,14 +476,14 @@ const createTaskTemplate = () => {
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
@@ -496,12 +496,12 @@ const createTaskTemplate = () => {
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -512,7 +512,7 @@ const createTaskTemplate = () => {
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
@@ -526,7 +526,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_board_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/board.js */ "./src/components/board.js");
 /* harmony import */ var _components_sort_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/sort.js */ "./src/components/sort.js");
 /* harmony import */ var _components_form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/form.js */ "./src/components/form.js");
-/* harmony import */ var _components_task_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/task.js */ "./src/components/task.js");
+/* harmony import */ var _components_task_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/tasks.js */ "./src/components/task.js");
 /* harmony import */ var _components_more_button_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/more-button.js */ "./src/components/more-button.js");
 
 
