@@ -1,5 +1,8 @@
+import {months} from "../utils/months";
+
 export const createTaskTemplate = (task) => {
   const {text, dueDate, repeatingDays, tags, color} = task
+
 
   return (
     `<article class="card card--${color}">
@@ -32,7 +35,7 @@ export const createTaskTemplate = (task) => {
               <div class="card__dates">
                 <div class="card__date-deadline">
                   <p class="card__input-deadline-wrap">
-                    <span class="card__date">${dueDate || ''}</span>
+                    <span class="card__date">${dueDate ? `${dueDate.getDay()} ${months[dueDate.getMonth()]}` : ''}</span>
                   </p>
                 </div>
               </div>

@@ -1,5 +1,9 @@
+import {months} from "../utils/months";
+
 export const createTaskFormTemplate = (task) => {
   const {text, dueDate, repeatingDays, tags, color} = task
+
+  console.log(repeatingDays)
 
   return (
     `<article class="card card--edit card--${color} card--repeat">
@@ -23,7 +27,7 @@ export const createTaskFormTemplate = (task) => {
             <div class="card__details">
               <div class="card__dates">
                 <button class="card__date-deadline-toggle" type="button">
-                  date: <span class="card__date-status">yes</span>
+                  date: <span class="card__date-status">${dueDate ? `yes` : 'no'}</span>
                 </button>
                 <fieldset class="card__date-deadline">
                   <label class="card__input-deadline-wrap">
@@ -32,7 +36,7 @@ export const createTaskFormTemplate = (task) => {
                       type="text"
                       placeholder=""
                       name="date"
-                      value="23 September"
+                      value="${dueDate ? `${dueDate.getDay()} ${months[dueDate.getMonth()]}` : ''}"
                     />
                   </label>
                 </fieldset>
