@@ -14,7 +14,7 @@ const generateTasks = (count = 1) => {
         {
           text: tasksTypes[Math.floor(Math.random() * tasksTypes.length)],
           dueDate: dueDate[Math.floor(Math.random() * dueDate.length)],
-          repeatingDays: repeatingDays[Math.floor(Math.random() * repeatingDays.length)],
+          taskRepeatingDays: Math.round(Math.random()) ? repeatingDays[Math.floor(Math.random() * repeatingDays.length)] : null,
           tags: tags[Math.floor(Math.random() * tags.length)],
           color: colors[Math.floor(Math.random() * colors.length)],
         }
