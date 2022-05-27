@@ -1,6 +1,7 @@
 import {months} from "../utils/months";
+import {createElement} from "../utils/utils";
 
-export const createTaskTemplate = (task) => {
+const createTaskTemplate = (task) => {
   const {text, dueDate, repeatingDays, tags, color} = task
 
 
@@ -46,3 +47,26 @@ export const createTaskTemplate = (task) => {
     </article>`
   );
 };
+
+export default class Task {
+  constructor(task) {
+    this._task = task;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTaskTemplate(this._task)
+  }
+
+  getELement () {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate())
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null
+  }
+}

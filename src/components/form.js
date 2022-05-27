@@ -1,6 +1,7 @@
 import {months} from "../utils/months";
 import {repeatingDays} from "../utils/days";
 import {colors} from "../utils/colors";
+import {createElement} from "../utils/utils";
 
 const createDayMarkup = (name, taskDays) => {
    if (taskDays) {
@@ -36,7 +37,7 @@ const createColorMarkup = (color, taskColor) => {
                 >`)
 }
 
-export const createTaskFormTemplate = (task) => {
+const createTaskFormTemplate = (task) => {
   const {text, dueDate, taskRepeatingDays, tags, color} = task
 
   return (
@@ -106,3 +107,27 @@ export const createTaskFormTemplate = (task) => {
     </article>`
   );
 };
+
+
+export default class TaskForm {
+  constructor(task) {
+    this._task = task;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTaskFormTemplate(this._task)
+  }
+
+  getELement () {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate())
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null
+  }
+}

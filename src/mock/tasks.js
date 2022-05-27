@@ -17,6 +17,7 @@ const generateTasks = (count = 1) => {
           taskRepeatingDays: Math.round(Math.random()) ? repeatingDays[Math.floor(Math.random() * repeatingDays.length)] : null,
           tags: tags[Math.floor(Math.random() * tags.length)],
           color: colors[Math.floor(Math.random() * colors.length)],
+          isArchive: !!Math.round(Math.random())
         }
       )
     }
