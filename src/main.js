@@ -8,6 +8,7 @@ import Sort from "./components/sort";
 import LoadMoreButton from "./components/more-button";
 import NoTasks from "./components/no-tasks";
 import {render} from "./utils/render";
+import {remove} from "./utils/remove";
 
 const TASKS_COUNT = 19;
 const SHOWING_TASKS_COUNT_BUTTON = 8;
