@@ -1,6 +1,6 @@
 import {generateFilters} from "./mock/filter.js";
 import {generateTasks} from "./mock/tasks";
-import {renderTask} from "./utils/utils";
+import {renderTasks} from "./utils/utils";
 import SiteMenu from "./components/menu";
 import Filter from "./components/filter";
 import Board from "./components/board";
@@ -10,26 +10,11 @@ import NoTasks from "./components/no-tasks";
 import {render} from "./utils/render";
 
 const TASKS_COUNT = 19;
-const SHOWING_TASKS_COUNT = 8;
+const SHOWING_TASKS_COUNT_BUTTON = 8;
+let showingTasksCount = 0;
 
 const filters = generateFilters();
 const tasks = generateTasks(TASKS_COUNT);
-let taskToAdd = tasks;
-
-
-export const addTasks = (tasksListElement, tasksArray, count) => {
-  for (let i = 0; i < count; i++) {
-    if (!tasksArray[i]) {
-      taskToAdd = [];
-      tasksListElement.parentElement.removeChild(tasksListElement.parentElement.querySelector('.load-more'))
-      return
-    }
-
-    renderTask(tasksListElement, tasksArray[i])
-  }
-
-  return taskToAdd = tasksArray.slice(count)
-}
 
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
@@ -50,12 +35,18 @@ if (isAllTasksArchived || !tasks.length) {
 
   const tasksListElement = boardContainerElement.querySelector(`.board__tasks`);
 
-  addTasks(tasksListElement, taskToAdd.slice(0), SHOWING_TASKS_COUNT);
+  renderTasks(tasksListElement, tasks.slice(0, SHOWING_TASKS_COUNT_BUTTON));
 
   render(boardContainerElement, new LoadMoreButton(), `beforeend`);
 
   boardContainerElement.querySelector('.load-more').addEventListener('click', (evt) => {
     evt.preventDefault();
-    addTasks(tasksListElement, taskToAdd, SHOWING_TASKS_COUNT);
+    const prevTasksCount = showingTasksCount;
+    showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BUTTON;
+    renderTasks(tasksListElement, tasks.slice(prevTasksCount, showingTasksCount));
+
+    if (showingTasksCount >= tasks.length) {
+
+    }
   })
 }
