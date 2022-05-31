@@ -1,5 +1,6 @@
 import {months} from "../utils/months";
 import {createElement} from "../utils/utils";
+import AbstractComponent from "./AbstractComponent";
 
 const createTaskTemplate = (task) => {
   const {text, dueDate, repeatingDays, tags, color} = task
@@ -48,25 +49,14 @@ const createTaskTemplate = (task) => {
   );
 };
 
-export default class Task {
+export default class Task extends AbstractComponent {
   constructor(task) {
+    super();
+
     this._task = task;
-    this._element = null;
   }
 
   getTemplate() {
     return createTaskTemplate(this._task)
-  }
-
-  getELement () {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate())
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null
   }
 }

@@ -2,6 +2,7 @@ import {months} from "../utils/months";
 import {repeatingDays} from "../utils/days";
 import {colors} from "../utils/colors";
 import {createElement} from "../utils/utils";
+import AbstractComponent from "./AbstractComponent";
 
 const createDayMarkup = (name, taskDays) => {
    if (taskDays) {
@@ -109,10 +110,10 @@ const createTaskFormTemplate = (task) => {
 };
 
 
-export default class TaskForm {
+export default class TaskForm extends AbstractComponent {
   constructor(task) {
+    super();
     this._task = task;
-    this._element = null;
   }
 
   getTemplate() {

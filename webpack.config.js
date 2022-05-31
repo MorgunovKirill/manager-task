@@ -16,6 +16,6 @@ module.exports = {
     devMiddleware: {
       publicPath: `http://localhost:8080`,
     },
-  }
+  },
 };
 

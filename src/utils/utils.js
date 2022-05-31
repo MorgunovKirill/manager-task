@@ -1,5 +1,6 @@
 import Task from "../components/task";
 import TaskForm from "../components/form";
+import {render} from "./render";
 
 export const RenderPosition = {
   AFTERBEGIN: 'afterbegin',
@@ -13,27 +14,16 @@ export const createElement = (template) => {
   return newElement.firstChild
 }
 
-export const render = (container, element, place) => {
-  switch (place) {
-    case RenderPosition.AFTERBEGIN:
-      container.prepend(element);
-      break;
-    case RenderPosition.BEFOREEND:
-      container.append(element);
-      break;
-  }
-};
-
 export const renderTask = (tasksListElement, task) => {
   const taskComponent = new Task(task);
   const taskEditComponent = new TaskForm(task);
 
   const replaceEditToTask = () => {
-    tasksListElement.replaceChild(taskComponent.getELement(), taskEditComponent.getELement())
+    tasksListElement.replaceChild(taskComponent.getElement(), taskEditComponent.getElement())
   }
 
   const replaceTaskToEdit = () => {
-    tasksListElement.replaceChild(taskEditComponent.getELement(), taskComponent.getELement())
+    tasksListElement.replaceChild(taskEditComponent.getElement(), taskComponent.getElement())
   }
 
   const onEscKeyDown = (evt) => {
@@ -45,16 +35,16 @@ export const renderTask = (tasksListElement, task) => {
     }
   }
 
-  const editButton = taskComponent.getELement().querySelector('.card__btn--edit');
+  const editButton = taskComponent.getElement().querySelector('.card__btn--edit');
   editButton.addEventListener('click', () => {
     replaceTaskToEdit()
     document.addEventListener('keydown', onEscKeyDown)
   })
 
-  const editForm = taskEditComponent.getELement().querySelector('form');
+  const editForm = taskEditComponent.getElement().querySelector('form');
   editForm.addEventListener('submit', () => {
     replaceEditToTask()
   })
 
-  render(tasksListElement, taskComponent.getELement(), `beforeend`);
+  render(tasksListElement, taskComponent, `beforeend`);
 }
