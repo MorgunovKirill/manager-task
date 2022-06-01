@@ -12,7 +12,7 @@ import {remove} from "./utils/remove";
 
 const TASKS_COUNT = 19;
 const SHOWING_TASKS_COUNT_BUTTON = 8;
-let showingTasksCount = 0;
+let showingTasksCount = SHOWING_TASKS_COUNT_BUTTON;
 
 const filters = generateFilters();
 const tasks = generateTasks(TASKS_COUNT);
@@ -21,33 +21,35 @@ const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
 render(siteHeaderElement, new SiteMenu(), `beforeend`);
+render(siteMainElement, new Filter(filters), `beforeend`);
 
 const isAllTasksArchived = tasks.every((task) => task.isArchive);
+
 
 if (isAllTasksArchived || !tasks.length) {
   render(siteMainElement, new NoTasks(), `beforeend`);
 } else {
-  render(siteMainElement, new Filter(filters), `beforeend`);
-  render(siteMainElement, new Board(), `beforeend`);
 
-  const boardContainerElement = siteMainElement.querySelector(`.board`);
+  const board = new Board();
+  render(siteMainElement, board, `beforeend`);
 
-  render(boardContainerElement, new Sort(), `afterbegin`);
+  render(board.getElement(), new Sort(), `afterbegin`);
 
-  const tasksListElement = boardContainerElement.querySelector(`.board__tasks`);
+  const tasksListElement = board.getElement().querySelector(`.board__tasks`);
 
   renderTasks(tasksListElement, tasks.slice(0, SHOWING_TASKS_COUNT_BUTTON));
 
-  render(boardContainerElement, new LoadMoreButton(), `beforeend`);
-
-  boardContainerElement.querySelector('.load-more').addEventListener('click', (evt) => {
+  const moreButton = new LoadMoreButton();
+  moreButton.setClickHandler((evt) => {
     evt.preventDefault();
     const prevTasksCount = showingTasksCount;
     showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BUTTON;
     renderTasks(tasksListElement, tasks.slice(prevTasksCount, showingTasksCount));
 
     if (showingTasksCount >= tasks.length) {
-
+      remove(moreButton)
     }
   })
+
+  render(board.getElement(), moreButton, `beforeend`);
 }

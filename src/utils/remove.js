@@ -1,3 +1,4 @@
-export const remove = (element) => {
-    element.parentElement.removeChild(element)
+export const remove = (component) => {
+  component.getElement().remove();
+  component.removeElement();
 };
