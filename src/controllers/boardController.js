@@ -1,6 +1,5 @@
 import NoTasks from "../components/no-tasks";
 import Sort from "../components/sort";
-import Task from "../components/task";
 import LoadMoreButton from "../components/more-button";
 import {render} from "../utils/render";
 import {renderTasks} from "../utils/utils";
@@ -24,19 +23,24 @@ export default class BoardController {
   }
 
   render() {
-    render(this._container, this._boardComponent, `beforeend`);
+    const isAllTasksArchived = this._tasks.every((task) => task.isArchive);
 
-    render(this._boardComponent.getElement(), this._sortComponent, `afterbegin`);
+    if (isAllTasksArchived || !this._tasks.length) {
+      render(this._container, this._noTasksComponent, `beforeend`);
+    } else {
+      render(this._container, this._boardComponent, `beforeend`);
 
-    const tasksListElement = this._boardComponent.getElement().querySelector(`.board__tasks`);
+      render(this._boardComponent.getElement(), this._sortComponent, `afterbegin`);
 
-    renderTasks(tasksListElement, this._tasks.slice(0, SHOWING_TASKS_COUNT_BY_BUTTON));
+      const tasksListElement = this._boardComponent.getElement().querySelector(`.board__tasks`);
 
-    this._loadMoreButtonComponent.setClickHandler(this._onLoadMoreButtonClick)
+      renderTasks(tasksListElement, this._tasks.slice(0, SHOWING_TASKS_COUNT_BY_BUTTON));
 
-    render(this._boardComponent.getElement(), this._loadMoreButtonComponent, `beforeend`);
+      this._loadMoreButtonComponent.setClickHandler(this._onLoadMoreButtonClick.bind(this, tasksListElement))
+
+      render(this._boardComponent.getElement(), this._loadMoreButtonComponent, `beforeend`);
+    }
   }
-
 
   _onLoadMoreButtonClick(container) {
     const prevTasksCount = this._showingTasksCount;
