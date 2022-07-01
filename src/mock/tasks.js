@@ -14,10 +14,11 @@ const generateTasks = (count = 1) => {
         {
           text: tasksTypes[Math.floor(Math.random() * tasksTypes.length)],
           dueDate: dueDate[Math.floor(Math.random() * dueDate.length)],
-          taskRepeatingDays: Math.round(Math.random()) ? repeatingDays[Math.floor(Math.random() * repeatingDays.length)] : null,
+          taskRepeatingDays: repeatingDays[Math.floor(Math.random() * repeatingDays.length)],
           tags: tags[Math.floor(Math.random() * tags.length)],
           color: colors[Math.floor(Math.random() * colors.length)],
-          isArchive: !!Math.round(Math.random())
+          isFavorite: !!Math.round(Math.random()),
+          isArchive: !!Math.round(Math.random()),
         }
       )
     }

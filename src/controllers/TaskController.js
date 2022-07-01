@@ -1,6 +1,7 @@
 import Task from "../components/task";
 import TaskEdit from "../components/task-edit";
 import {render} from "../utils/render";
+import {replace} from "../utils/replace";
 
 
 export default class TaskController {
@@ -21,8 +22,6 @@ export default class TaskController {
     this._taskComponent = new Task(task);
     this._taskEditComponent = new TaskEdit(task);
 
-    render(this._container, this._taskComponent, `beforeend`);
-
     this._taskComponent.setEditButtonClickHandler(() => {
       this._replaceTaskToEdit();
       document.addEventListener('keydown', this._onEscKeyDown)
@@ -30,14 +29,30 @@ export default class TaskController {
     this._taskEditComponent.setFormSubmitHandler(() => {
       this._replaceEditToTask();
     });
+
+    this._taskComponent.setFavoriteButtonClickHandler(() => {
+        this._onDataChange(this, task, Object.assign({}, task, {
+          isFavorite: !task.isFavorite,
+        }))
+    });
+
+    this._taskComponent.setArchiveButtonClickHandler(() => {
+      this._onDataChange(this, task, Object.assign({}, task, {
+        isArchive: !task.isArchive,
+      }))
+    });
+
+    render(this._container, this._taskComponent, `beforeend`);
   }
 
   _replaceEditToTask() {
-    this._container.replaceChild(this._taskComponent.getElement(), this._taskEditComponent.getElement())
+    this._taskEditComponent.reset();
+
+    replace(this._taskComponent, this._taskEditComponent);
   }
 
   _replaceTaskToEdit() {
-    this._container.replaceChild(this._taskEditComponent.getElement(), this._taskComponent.getElement())
+    replace(this._taskEditComponent, this._taskComponent);
   }
 
   _onEscKeyDown (evt) {

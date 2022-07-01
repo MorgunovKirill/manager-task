@@ -63,7 +63,9 @@ export default class BoardController {
     }
   }
 
-  _onDataChange (oldTask, newTask) {
-
+  _onDataChange (container, oldData, newData) {
+      console.log(container)
+      console.log('oldData', oldData)
+      console.log('newData', newData)
   }
 }
