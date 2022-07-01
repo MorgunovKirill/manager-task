@@ -2,13 +2,23 @@ import NoTasks from "../components/no-tasks";
 import Sort from "../components/sort";
 import LoadMoreButton from "../components/more-button";
 import {render} from "../utils/render";
-import {renderTasks} from "../utils/utils";
 import {remove} from "../utils/remove";
 import Board from "../components/board";
+import TaskController from "./TaskController";
 
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
+const renderTasks = (tasksListElement, tasks, onDataChange) => {
+  return tasks.map((task) => {
+
+    const taskController = new TaskController(tasksListElement, onDataChange);
+
+    taskController.render(task);
+
+    return taskController
+  })
+}
 
 export default class BoardController {
   constructor(container, tasks) {
@@ -20,6 +30,7 @@ export default class BoardController {
     this._noTasksComponent = new NoTasks();
     this._sortComponent = new Sort();
     this._loadMoreButtonComponent = new LoadMoreButton();
+    this._onDataChange = this._onDataChange.bind(this)
   }
 
   render() {
@@ -34,7 +45,7 @@ export default class BoardController {
 
       const tasksListElement = this._boardComponent.getElement().querySelector(`.board__tasks`);
 
-      renderTasks(tasksListElement, this._tasks.slice(0, SHOWING_TASKS_COUNT_BY_BUTTON));
+      renderTasks(tasksListElement, this._tasks.slice(0, SHOWING_TASKS_COUNT_BY_BUTTON), this._onDataChange);
 
       this._loadMoreButtonComponent.setClickHandler(this._onLoadMoreButtonClick.bind(this, tasksListElement))
 
@@ -45,10 +56,14 @@ export default class BoardController {
   _onLoadMoreButtonClick(container) {
     const prevTasksCount = this._showingTasksCount;
     this._showingTasksCount = this._showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
-    renderTasks(container, this._tasks.slice(prevTasksCount, this._showingTasksCount));
+    renderTasks(container, this._tasks.slice(prevTasksCount, this._showingTasksCount), this._onDataChange);
 
     if (this._showingTasksCount >= this._tasks.length) {
       remove(this._loadMoreButtonComponent)
     }
+  }
+
+  _onDataChange (oldTask, newTask) {
+
   }
 }

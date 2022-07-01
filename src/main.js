@@ -3,7 +3,7 @@ import {generateTasks} from "./mock/tasks";
 import {render} from "./utils/render";
 import SiteMenu from "./components/menu";
 import Filter from "./components/filter";
-import BoardController from "./controllers/boardController";
+import BoardController from "./controllers/BoardController";
 
 const TASKS_COUNT = 19;
 const filters = generateFilters();
@@ -15,4 +15,4 @@ const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 render(siteHeaderElement, new SiteMenu(), `beforeend`);
 render(siteMainElement, new Filter(filters), `beforeend`);
 
-new BoardController(siteMainElement, tasks).render()
+new BoardController(siteMainElement, tasks).render();

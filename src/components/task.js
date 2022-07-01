@@ -1,6 +1,6 @@
 import {months} from "../utils/months";
-import {createElement} from "../utils/utils";
 import AbstractComponent from "./AbstractComponent";
+import AbstractSmartComponent from "./AbstractSmartComponent";
 
 const createTaskTemplate = (task) => {
   const {text, dueDate, repeatingDays, tags, color} = task
@@ -49,7 +49,7 @@ const createTaskTemplate = (task) => {
   );
 };
 
-export default class Task extends AbstractComponent {
+export default class Task extends AbstractSmartComponent {
   constructor(task) {
     super();
 
@@ -58,5 +58,17 @@ export default class Task extends AbstractComponent {
 
   getTemplate() {
     return createTaskTemplate(this._task)
+  }
+
+  setEditButtonClickHandler(handler) {
+    this.getElement().querySelector('.card__btn--edit').addEventListener('click', handler);
+  }
+
+  setFavoriteButtonClickHandler(handler) {
+    this.getElement().querySelector('.card__btn--favorites').addEventListener('click', handler);
+  }
+
+  setArchiveButtonClickHandler(handler) {
+    this.getElement().querySelector('.card__btn--archive').addEventListener('click', handler);
   }
 }

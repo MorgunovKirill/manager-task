@@ -3,6 +3,7 @@ import {repeatingDays} from "../utils/days";
 import {colors} from "../utils/colors";
 import {createElement} from "../utils/utils";
 import AbstractComponent from "./AbstractComponent";
+import AbstractSmartComponent from "./AbstractSmartComponent";
 
 const createDayMarkup = (name, taskDays) => {
    if (taskDays) {
@@ -109,8 +110,7 @@ const createTaskFormTemplate = (task) => {
   );
 };
 
-
-export default class TaskForm extends AbstractComponent {
+export default class TaskEdit extends AbstractSmartComponent {
   constructor(task) {
     super();
     this._task = task;
@@ -120,15 +120,11 @@ export default class TaskForm extends AbstractComponent {
     return createTaskFormTemplate(this._task)
   }
 
-  getELement () {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate())
-    }
-
-    return this._element;
-  }
-
   removeElement() {
     this._element = null
+  }
+
+  setFormSubmitHandler(handler) {
+    this.getElement().querySelector('form').addEventListener('submit', handler);
   }
 }
